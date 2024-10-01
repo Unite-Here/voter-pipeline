@@ -1,6 +1,6 @@
 
 
-class BaseVoteImport():
+class BaseVoterScrapper():
     def __init__(self) -> None:
         pass
 

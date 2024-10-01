@@ -16,6 +16,11 @@ classifiers = [
 ]
 
 dependencies = [
+  "csv",
+  "os",
+  "requests",
+  "tempfile",
+  "zipfile"
 ]
 
 [project.optional-dependencies]
