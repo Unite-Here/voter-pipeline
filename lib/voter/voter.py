@@ -7,6 +7,9 @@ class VoterClassError(RuntimeError):
     pass
 
 
+VOTE_TYPE_OPTIONS = ["Mail", "Early", "E-day"]
+
+
 @dataclass
 class Voter:
     """
@@ -207,7 +210,7 @@ class Voter:
         return self.VOTE_TYPE
 
     def set_vote_type(self, val: str):
-        valid = validate_input(["Mail", "Early", "E-day"], val)
+        valid = validate_input(VOTE_TYPE_OPTIONS, val)
         if valid:
             self.VOTE_TYPE = val
         else:
