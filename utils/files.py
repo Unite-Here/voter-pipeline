@@ -8,7 +8,7 @@ class FileUtilsError(ValueError):
     pass
 
 
-def download_file(url, dest_path):
+def download_file(url: str, dest_path: str):
     """
     Download file from url to given destination
     Parameters:
@@ -23,7 +23,7 @@ def download_file(url, dest_path):
         raise FileUtilsError(f"Downloading file failed: {err}")
 
 
-def unzip_file(zip_path, file_name, unzip_path):
+def unzip_file(zip_path: str, file_name: str, unzip_path: str):
     """
     Unzip specific file to destination
     Parameters:
@@ -38,7 +38,7 @@ def unzip_file(zip_path, file_name, unzip_path):
         raise FileUtilsError(f"Unzip file failed: {err}")
 
 
-def unzip_all_files(zip_path, unzip_path):
+def unzip_all_files(zip_path: str, unzip_path: str):
     """
     Unzip all contents of zip file to destination
     Parameters:
@@ -52,7 +52,7 @@ def unzip_all_files(zip_path, unzip_path):
         raise FileUtilsError(f"Unzip all files failed: {err}")
 
 
-def csv_to_list(csv_file):
+def csv_to_list(csv_file: str):
     """
     Read csv file into list
     Parameters:
