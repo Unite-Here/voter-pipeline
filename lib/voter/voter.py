@@ -194,132 +194,132 @@ class Voter:
             except:
                 pass
 
-    def get_idnumber(self):
+    def get_idnumber(self) -> str:
         return self.IDNUMBER
 
     def set_idnumber(self, val: str):
         self.IDNUMBER = val
 
-    def get_county(self):
+    def get_county(self) -> str:
         return self.COUNTY
 
-    def set_county(self, val: str):
+    def set_county(self, val: str) -> None:
         self.COUNTY = val
 
-    def get_vote_type(self):
+    def get_vote_type(self) -> str:
         return self.VOTE_TYPE
 
-    def set_vote_type(self, val: str):
+    def set_vote_type(self, val: str) -> None:
         valid = validate_input(VOTE_TYPE_OPTIONS, val)
         if valid:
             self.VOTE_TYPE = val
         else:
             raise VoterClassError(f"Invalid input {val}, valid inputs are: Mail, Early, E-day")
 
-    def get_election_code(self):
+    def get_election_code(self) -> str:
         return self.ELECTION_CODE
 
-    def set_election_code(self, val: str):
+    def set_election_code(self, val: str) -> None:
         self.ELECTION_CODE = val
 
-    def get_activity_date(self):
+    def get_activity_date(self) -> str:
         return self.ACTIVITY_DATE
 
-    def set_activity_date(self, val: str):
+    def set_activity_date(self, val: str) -> None:
         self.ACTIVITY_DATE = val
 
-    def get_name(self):
+    def get_name(self) -> str | None:
         return self.NAME
 
-    def set_name(self, val: str):
+    def set_name(self, val: str) -> None:
         self.NAME = val
 
-    def get_precinct(self):
+    def get_precinct(self) -> str | None:
         return self.PRECINCT
 
-    def set_precinct(self, val: str):
+    def set_precinct(self, val: str) -> None:
         self.PRECINCT = val
 
-    def get_party(self):
+    def get_party(self) -> str | None:
         return self.PARTY
 
-    def set_party(self, val: str):
+    def set_party(self, val: str) -> None:
         self.PARTY = val
 
-    def get_party_name(self):
+    def get_party_name(self) -> str | None:
         return self.PARTY_NAME
 
-    def set_party_name(self, val: str):
+    def set_party_name(self, val: str) -> None:
         self.PARTY_NAME = val
 
-    def get_congress(self):
+    def get_congress(self) -> str | None:
         return self.CONGRESS
 
-    def set_congress(self, val: str):
+    def set_congress(self, val: str) -> None:
         self.CONGRESS = val
 
-    def get_assembly(self):
+    def get_assembly(self) -> str | None:
         return self.ASSEMBLY
 
-    def set_assembly(self, val: str):
+    def set_assembly(self, val: str) -> None:
         self.ASSEMBLY = val
 
-    def get_senate(self):
+    def get_senate(self) -> str | None:
         return self.SENATE
 
-    def set_senate(self, val: str):
+    def set_senate(self, val: str) -> None:
         self.SENATE = val
 
-    def get_commission(self):
+    def get_commission(self) -> str | None:
         return self.COMMISSION
 
-    def set_commission(self, val: str):
+    def set_commission(self, val: str) -> None:
         self.COMMISSION = val
 
-    def get_education(self):
+    def get_education(self) -> str | None:
         return self.EDUCATION
 
-    def set_education(self, val: str):
+    def set_education(self, val: str) -> None:
         self.EDUCATION = val
 
-    def get_regent(self):
+    def get_regent(self) -> str | None:
         return self.REGENT
 
-    def set_regent(self, val: str):
+    def set_regent(self, val: str) -> None:
         self.REGENT = val
 
-    def get_school(self):
+    def get_school(self) -> str | None:
         return self.SCHOOL
 
-    def set_school(self, val: str):
+    def set_school(self, val: str) -> None:
         self.SCHOOL = val
 
-    def get_city(self):
+    def get_city(self) -> str | None:
         return self.CITY
 
-    def set_city(self, val: str):
+    def set_city(self, val: str) -> None:
         self.CITY = val
 
-    def get_ward(self):
+    def get_ward(self) -> str | None:
         return self.WARD
 
-    def set_ward(self, val: str):
+    def set_ward(self, val: str) -> None:
         self.WARD = val
 
-    def get_township(self):
+    def get_township(self) -> str | None:
         return self.TOWNSHIP
 
-    def set_township(self, val: str):
+    def set_township(self, val: str) -> None:
         self.TOWNSHIP = val
 
-    def get_reg_status(self):
+    def get_reg_status(self) -> str | None:
         return self.REG_STATUS
 
-    def set_reg_status(self, val: str):
+    def set_reg_status(self, val: str) -> None:
         self.REG_STATUS = val
 
-    def get_vote_site(self):
+    def get_vote_site(self) -> str | None:
         return self.VOTE_SITE
 
-    def set_vote_site(self, val: str):
+    def set_vote_site(self, val: str) -> None:
         self.VOTE_SITE = val
