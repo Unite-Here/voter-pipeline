@@ -30,6 +30,9 @@ class ClarkNVVoteScraper(BaseVoterScrapper):
         # Add all votes to a list of Voters
 
     def get_vbm_votes(self):
+        """
+        Get vote by mail
+        """
         with tempfile.TemporaryDirectory() as tmpdir:
             # Download file to tmpdir
             download_file(VBM_URL, f"{tmpdir}/{VBM_ZIP_NAME}")
@@ -39,6 +42,8 @@ class ClarkNVVoteScraper(BaseVoterScrapper):
 
             # Rename file from txt to csv
             os.rename(f"{tmpdir}/{VBM_FILE_NAME}", f"{tmpdir}/{VBM_CSV_NAME}")
+
+            # TODO: append Mail vote type to csv
 
             # Add file contents to the raw_votes list
             file_data = csv_to_list(f"{tmpdir}/{VBM_CSV_NAME}")
@@ -55,10 +60,15 @@ class ClarkNVVoteScraper(BaseVoterScrapper):
             # Rename file from txt to csv
             os.rename(f"{tmpdir}/{EV_FILE_NAME}", f"{tmpdir}/{EV_CSV_NAME}")
 
+            # TODO: append Mail vote type to csv
+            
             # Add file contents to the raw_votes list
             file_data = csv_to_list(f"{tmpdir}/{EV_CSV_NAME}")
             self.raw_votes.extend(file_data)
 
-    def process_votes():
-        raise NotADirectoryError()
+    def process_votes(self):
+        for item in self.raw_votes:
+            
         #take raw_votes list, clean and create a list of voter objects
+        pass
+
