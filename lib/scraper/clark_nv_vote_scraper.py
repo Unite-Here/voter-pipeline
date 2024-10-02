@@ -67,8 +67,9 @@ class ClarkNVVoteScraper(BaseVoterScrapper):
             self.raw_votes.extend(file_data)
 
     def process_votes(self):
-        for item in self.raw_votes:
-            
+        for raw_data in self.raw_votes:
+            clean_data = [
+            ]
         #take raw_votes list, clean and create a list of voter objects
         pass
 
