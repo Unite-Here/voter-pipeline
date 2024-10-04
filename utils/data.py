@@ -12,5 +12,5 @@ def validate_input(valid_input: list, in_val) -> bool:
     bool
         If in_val matches an item in valid_input then returns True, else False
     """
-    valid = any(in_val in validate_input for item in valid_input)
+    valid = any(in_val in valid_input for item in valid_input)
     return valid

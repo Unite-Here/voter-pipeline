@@ -28,6 +28,7 @@ dev = [
   "pytest",
   "pytest-cov",
   "pytest-mock",
+  "requests-mock"
 ]
 
 [tool.setuptools]

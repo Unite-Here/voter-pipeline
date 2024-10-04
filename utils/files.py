@@ -8,7 +8,7 @@ class FileUtilsError(ValueError):
     pass
 
 
-def download_file(url: str, dest_path: str):
+def download_file(url: str, dest_path: str) -> None:
     """
     Download file from url to given destination
     Parameters:
@@ -23,7 +23,7 @@ def download_file(url: str, dest_path: str):
         raise FileUtilsError(f"Downloading file failed: {err}")
 
 
-def unzip_file(zip_path: str, file_name: str, unzip_path: str):
+def unzip_file(zip_path: str, file_name: str, unzip_path: str) -> None:
     """
     Unzip specific file to destination
     Parameters:
@@ -38,7 +38,7 @@ def unzip_file(zip_path: str, file_name: str, unzip_path: str):
         raise FileUtilsError(f"Unzip file failed: {err}")
 
 
-def unzip_all_files(zip_path: str, unzip_path: str):
+def unzip_all_files(zip_path: str, unzip_path: str) -> None:
     """
     Unzip all contents of zip file to destination
     Parameters:
@@ -52,18 +52,21 @@ def unzip_all_files(zip_path: str, unzip_path: str):
         raise FileUtilsError(f"Unzip all files failed: {err}")
 
 
-def csv_to_list(csv_file: str):
+def csv_to_dict_list(csv_file: str, headers: list[str]) -> list[dict]:
     """
-    Read csv file into list
+    Read csv file into list of dictionaries
     Parameters:
         csv_file (string): Path to csv file being read
+        headers (list): List of header strings to use as fieldnames
     Returns:
-        data: List of data
+        data: List of dictionaries
     """
     try:
+        data = []
         file = open(csv_file, "r")
-        data = list(csv.reader(file, delimiter=","))
-        file.close
+        reader = csv.DictReader(file, fieldnames=headers)
+        for dictionary in reader:
+            data.append(dictionary)
         return data
     except Exception as err:
         raise FileUtilsError(f"Reading csv to list failed: {err}")

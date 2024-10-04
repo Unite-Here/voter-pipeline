@@ -9,7 +9,7 @@ class VoterClassError(RuntimeError):
 
 VOTE_TYPE_OPTIONS = ["Mail", "Early", "E-day"]
 
-
+# FIXME: Add post_init to validate vote type
 @dataclass
 class Voter:
     """
@@ -87,7 +87,41 @@ class Voter:
     REG_STATUS: str | None = None
     VOTE_SITE: str | None = None
 
-    def set_all(self, voter_data: list):
+
+    def __post_init__(self):
+        valid = validate_input(VOTE_TYPE_OPTIONS, self.VOTE_TYPE)
+        if valid == False:
+            raise VoterClassError("Vote type not valid!")
+
+
+    def get_all(self) -> dict:
+        voter_data = {
+            "IDNUMBER": self.IDNUMBER,
+            "COUNTY": self.COUNTY,
+            "VOTE_TYPE": self.VOTE_TYPE,
+            "ELECTION_CODE": self.ELECTION_CODE,
+            "ACTIVITY_DATE": self.ACTIVITY_DATE,
+            "NAME": self.NAME,
+            "PRECINCT": self.PRECINCT,
+            "PARTY": self.PARTY,
+            "PARTY_NAME": self.PARTY_NAME,
+            "CONGRESS": self.CONGRESS,
+            "ASSEMBLY": self.ASSEMBLY,
+            "SENATE": self.SENATE,
+            "COMMISSION": self.COMMISSION,
+            "EDUCATION": self.EDUCATION,
+            "REGENT": self.REGENT,
+            "SCHOOL": self.SCHOOL,
+            "CITY": self.CITY,
+            "WARD": self.WARD,
+            "TOWNSHIP": self.TOWNSHIP,
+            "REG_STATUS": self.REG_STATUS,
+            "VOTE_SITE": self.VOTE_SITE
+        }
+        
+        return voter_data
+
+    def set_all(self, voter_data: dict) -> None:
         """
         Set multiple values at once
 
@@ -123,74 +157,74 @@ class Voter:
         if len(voter_data) < 5:
             raise VoterClassError("Voter data list missing required values")
         else:
-            self.set_idnumber(voter_data[0])
-            self.set_county(voter_data[1])
-            self.set_vote_type(voter_data[2])
-            self.set_election_code(voter_data[3])
-            self.set_activity_date(voter_data[4])
+            self.set_idnumber(val=voter_data["IDNUMBER"])
+            self.set_county(voter_data["COUNTY"])
+            self.set_vote_type(voter_data["VOTE_TYPE"])
+            self.set_election_code(voter_data["ELECTION_CODE"])
+            self.set_activity_date(voter_data["ACTIVITY_DATE"])
 
             try:
-                self.set_name(voter_data[5])
+                self.set_name(voter_data["NAME"])
             except:
                 pass
             try:
-                self.set_precinct(voter_data[6])
+                self.set_precinct(voter_data["PRECINCT"])
             except:
                 pass
             try:
-                self.set_party(voter_data[7])
+                self.set_party(voter_data["PARTY"])
             except:
                 pass
             try:
-                self.set_party_name(voter_data[8])
+                self.set_party_name(voter_data["PARTY_NAME"])
             except:
                 pass
             try:
-                self.set_congress(voter_data[9])
+                self.set_congress(voter_data["CONGRESS"])
             except:
                 pass
             try:
-                self.set_assembly(voter_data[10])
+                self.set_assembly(voter_data["ASSEMBLY"])
             except:
                 pass
             try:
-                self.set_senate(voter_data[11])
+                self.set_senate(voter_data["SENATE"])
             except:
                 pass
             try:
-                self.set_commission(voter_data[12])
+                self.set_commission(voter_data["COMMISSION"])
             except:
                 pass
             try:
-                self.set_education(voter_data[13])
+                self.set_education(voter_data["EDUCATION"])
             except:
                 pass
             try:
-                self.set_regent(voter_data[14])
+                self.set_regent(voter_data["REGENT"])
             except:
                 pass
             try:
-                self.set_school(voter_data[15])
+                self.set_school(voter_data["SCHOOL"])
             except:
                 pass
             try:
-                self.set_city(voter_data[16])
+                self.set_city(voter_data["CITY"])
             except:
                 pass
             try:
-                self.set_ward(voter_data[17])
+                self.set_ward(voter_data["WARD"])
             except:
                 pass
             try:
-                self.set_township(voter_data[18])
+                self.set_township(voter_data["TOWNSHIP"])
             except:
                 pass
             try:
-                self.set_reg_status(voter_data[19])
+                self.set_reg_status(voter_data["REG_STATUS"])
             except:
                 pass
             try:
-                self.set_vote_site(voter_data[20])
+                self.set_vote_site(voter_data["VOTE_SITE"])
             except:
                 pass
 
