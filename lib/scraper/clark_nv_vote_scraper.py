@@ -22,6 +22,7 @@ CLEAN_HEADER_LIST = [
     "CONGRESS", "ASSEMBLY", "SENATE", "COMMISSION", "EDUCATION", "REGENT", "SCHOOL", "CITY", "WARD", "TOWNSHIP",
     "REG_STATUS", "VOTE_SITE"
 ]
+COUNTY_NAME = "CLARK_COUNTY"
 
 
 class CCNVScraperError(RuntimeError):
@@ -109,7 +110,7 @@ class ClarkNVVoteScraper(BaseVoterScrapper):
         try:
             for raw_data in self.raw_votes:
                 # Set voter data
-                voter = Voter(raw_data["IDNUMBER"], "CLARK_COUNTY", raw_data["VOTE_TYPE"], raw_data["ELECTION_CODE"],
+                voter = Voter(raw_data["IDNUMBER"], COUNTY_NAME, raw_data["VOTE_TYPE"], raw_data["ELECTION_CODE"],
                               raw_data["ACTIVITY_DATE"], raw_data["NAME"], raw_data["PRECINCT"], raw_data["PARTY"],
                               raw_data["PARTY_NAME"], raw_data["CONGRESS"], raw_data["ASSEMBLY"], raw_data["SENATE"],
                               raw_data["COMMISSION"], raw_data["EDUCATION"], raw_data["REGENT"], raw_data["SCHOOL"],
