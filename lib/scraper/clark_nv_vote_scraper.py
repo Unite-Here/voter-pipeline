@@ -1,7 +1,7 @@
 import os
 import tempfile
 
-from lib.scraper.base_vote_scraper import BaseVoterScrapper
+from lib.scraper.base_vote_scraper import BaseVoterScraper
 from lib.voter.voter import Voter
 from utils.files import csv_to_dict_list, download_file, unzip_file
 
@@ -24,7 +24,7 @@ class CCNVScraperError(RuntimeError):
     pass
 
 
-class ClarkNVVoteScraper(BaseVoterScrapper):
+class ClarkNVVoteScraper(BaseVoterScraper):
 
     def __init__(self) -> None:
         super().__init__()

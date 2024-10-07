@@ -20,7 +20,7 @@ class BaseScraperError(RuntimeError):
     pass
 
 
-class BaseVoterScrapper():
+class BaseVoterScraper():
 
     def __init__(self) -> None:
         self.clean_votes: list[Voter] = []
