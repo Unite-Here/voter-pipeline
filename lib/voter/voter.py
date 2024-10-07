@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from utils.data import validate_input
+from lib.utils.data import validate_input
 
 
 class VoterClassError(RuntimeError):
@@ -9,7 +9,6 @@ class VoterClassError(RuntimeError):
 
 VOTE_TYPE_OPTIONS = ["Mail", "Early", "E-day"]
 
-# FIXME: Add post_init to validate vote type
 @dataclass
 class Voter:
     """

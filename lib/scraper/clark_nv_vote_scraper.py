@@ -3,7 +3,7 @@ import tempfile
 
 from lib.scraper.base_vote_scraper import BaseVoterScraper
 from lib.voter.voter import Voter
-from utils.files import csv_to_dict_list, download_file, unzip_file
+from lib.utils.files import csv_to_dict_list, download_file, unzip_file
 
 EV_URL = "https://elections.clarkcountynv.gov/VoterRequestsTV/EVMB/ev_24P.zip"
 EV_ZIP_NAME = "ev_24P.zip"
@@ -18,6 +18,7 @@ RAW_HEADER_LIST = [
     "REGENT", "SCHOOL", "CITY", "WARD", "TOWNSHIP", "REG_STATUS", "VOTE_SITE", "ELECTION_CODE", "ACTIVITY_DATE"
 ]
 COUNTY_NAME = "CLARK_COUNTY"
+FILE_ENCODING = "cp1252"
 
 
 class CCNVScraperError(RuntimeError):
@@ -63,7 +64,7 @@ class ClarkNVVoteScraper(BaseVoterScraper):
                 os.rename(f"{tmpdir}/{VBM_FILE_NAME}", f"{tmpdir}/{VBM_CSV_NAME}")
 
                 # Convert csv to list of dictionaries and add vote type
-                file_data = csv_to_dict_list(f"{tmpdir}/{VBM_CSV_NAME}", RAW_HEADER_LIST)
+                file_data = csv_to_dict_list(f"{tmpdir}/{VBM_CSV_NAME}", RAW_HEADER_LIST, FILE_ENCODING)
                 for dictionary in file_data:
                     dictionary["VOTE_TYPE"] = "Mail"
 
@@ -88,7 +89,7 @@ class ClarkNVVoteScraper(BaseVoterScraper):
                 os.rename(f"{tmpdir}/{EV_FILE_NAME}", f"{tmpdir}/{EV_CSV_NAME}")
 
                 # Convert csv to list of dictionaries and add vote type
-                file_data = csv_to_dict_list(f"{tmpdir}/{EV_CSV_NAME}", RAW_HEADER_LIST)
+                file_data = csv_to_dict_list(f"{tmpdir}/{EV_CSV_NAME}", RAW_HEADER_LIST, FILE_ENCODING)
                 for dictionary in file_data:
                     dictionary["VOTE_TYPE"] = "Early"
 

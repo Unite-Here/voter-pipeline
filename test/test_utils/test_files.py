@@ -7,7 +7,7 @@ from zipfile import ZipFile
 import pytest
 import requests
 
-from utils.files import FileUtilsError, csv_to_dict_list, download_file, unzip_all_files, unzip_file
+from lib.utils.files import FileUtilsError, csv_to_dict_list, download_file, unzip_all_files, unzip_file
 
 
 # Test download_file success
@@ -78,7 +78,7 @@ def test_unzip_file_fail(mocker):
         fake_zip = f"{tmpdir}/fake.zip"
 
         # Mock extraction call to throw exception
-        mocker.patch("utils.files.ZipFile.extract", side_effect=Exception)
+        mocker.patch("lib.utils.files.ZipFile.extract", side_effect=Exception)
 
         # Assert exception raised
         with pytest.raises(FileUtilsError, match=r"Unzip file failed"):
@@ -121,7 +121,7 @@ def test_unzip_all_files_fail(mocker):
         fake_zip = f"{tmpdir}/fake.zip"
 
         # Mock extraction call to throw eception
-        mocker.patch("utils.files.ZipFile.extractall", side_effect=Exception)
+        mocker.patch("lib.utils.files.ZipFile.extractall", side_effect=Exception)
 
         # Assert exception raised
         with pytest.raises(FileUtilsError, match=r"Unzip all files failed"):
@@ -169,7 +169,7 @@ def test_csv_to_dict_list_fail(mocker):
         fake_csv = f"{tmpdir}/fake.csv"
 
         # Mock DictReader to throw exception
-        mocker.patch("utils.files.csv.DictReader", side_effect=Exception)
+        mocker.patch("lib.utils.files.csv.DictReader", side_effect=Exception)
 
         # Assert exception thrown
         with pytest.raises(FileUtilsError, match=r"Reading csv to list failed"):

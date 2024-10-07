@@ -1,4 +1,4 @@
-from utils.data import validate_input
+from lib.utils.data import validate_input
 
 
 # Test validate_input returns true if input is None

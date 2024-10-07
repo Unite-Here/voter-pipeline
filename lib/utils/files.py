@@ -52,18 +52,19 @@ def unzip_all_files(zip_path: str, unzip_path: str) -> None:
         raise FileUtilsError(f"Unzip all files failed: {err}")
 
 
-def csv_to_dict_list(csv_file: str, headers: list[str]) -> list[dict]:
+def csv_to_dict_list(csv_file: str, headers: list[str], file_encoding: str = "utf-8") -> list[dict]:
     """
     Read csv file into list of dictionaries
     Parameters:
         csv_file (string): Path to csv file being read
         headers (list): List of header strings to use as fieldnames
+        file_encoding (string): File encoding, defaults to "utf-8"
     Returns:
         data: List of dictionaries
     """
     try:
         data = []
-        file = open(csv_file, "r")
+        file = open(csv_file, "r", encoding=file_encoding)
         reader = csv.DictReader(file, fieldnames=headers)
         for dictionary in reader:
             data.append(dictionary)

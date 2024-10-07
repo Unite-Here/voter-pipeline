@@ -1,0 +1,11 @@
+#!/usr/bin/env python3
+
+from lib.scraper.clark_nv_vote_scraper import ClarkNVVoteScraper
+
+ccnvScraper = ClarkNVVoteScraper() 
+
+clean_votes = ccnvScraper.get_all_votes()
+
+for item in clean_votes:
+    print(item)
+    print("\n")
