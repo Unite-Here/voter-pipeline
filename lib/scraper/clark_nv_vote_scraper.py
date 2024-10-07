@@ -17,11 +17,6 @@ RAW_HEADER_LIST = [
     "IDNUMBER", "NAME", "PRECINCT", "PARTY", "PARTY_NAME", "CONGRESS", "ASSEMBLY", "SENATE", "COMMISSION", "EDUCATION",
     "REGENT", "SCHOOL", "CITY", "WARD", "TOWNSHIP", "REG_STATUS", "VOTE_SITE", "ELECTION_CODE", "ACTIVITY_DATE"
 ]
-CLEAN_HEADER_LIST = [
-    "IDNUMBER", "COUNTY", "VOTE_TYPE", "ELECTION_CODE", "ACTIVITY_DATE", "NAME", "PRECINCT", "PARTY", "PARTY_NAME",
-    "CONGRESS", "ASSEMBLY", "SENATE", "COMMISSION", "EDUCATION", "REGENT", "SCHOOL", "CITY", "WARD", "TOWNSHIP",
-    "REG_STATUS", "VOTE_SITE"
-]
 COUNTY_NAME = "CLARK_COUNTY"
 
 
@@ -34,7 +29,6 @@ class ClarkNVVoteScraper(BaseVoterScrapper):
     def __init__(self) -> None:
         super().__init__()
         self.raw_votes = []
-        self.clean_votes = []
 
     def get_all_votes(self):
         """

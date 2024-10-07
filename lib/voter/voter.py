@@ -95,6 +95,9 @@ class Voter:
 
 
     def get_all(self) -> dict:
+        """
+        Get all voter data as dictionary
+        """
         voter_data = {
             "IDNUMBER": self.IDNUMBER,
             "COUNTY": self.COUNTY,
