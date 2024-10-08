@@ -13,7 +13,7 @@ HEADER_LIST = [
     "REG_STATUS", "VOTE_SITE"
 ]
 DATABASE = "Unite Here"
-TABLE = "political_voter_pipeline"
+TABLE = "political_dev.voter_pipeline"
 
 
 class BaseScraperError(RuntimeError):
