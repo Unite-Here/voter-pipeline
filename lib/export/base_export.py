@@ -10,7 +10,7 @@ class BaseExport():
         self.external_state: list = []
         pass
 
-    def export():
+    def export(self):
         """
         Start and complete the export process.
         """

@@ -33,6 +33,6 @@ class SPExport(BaseExport):
         self.external_state = list(map(self._extract_rename, sp_voters))
 
 
-    def _extract_rename(dict):
+    def _extract_rename(self, dict):
         return {'spid': dict['workerId']}
     
