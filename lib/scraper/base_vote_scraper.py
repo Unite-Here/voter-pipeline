@@ -12,8 +12,8 @@ HEADER_LIST = [
     "CONGRESS", "ASSEMBLY", "SENATE", "COMMISSION", "EDUCATION", "REGENT", "SCHOOL", "CITY", "WARD", "TOWNSHIP",
     "REG_STATUS", "VOTE_SITE"
 ]
-DATABASE = ""
-TABLE = ""
+DATABASE = "Unite Here"
+TABLE = "political_voter_pipeline"
 
 
 class BaseScraperError(RuntimeError):
