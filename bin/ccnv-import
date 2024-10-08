@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 
 from lib.scraper.clark_nv_vote_scraper import ClarkNVVoteScraper
+from uhlibs.civis.api import create_client
+import os
 
-ccnvScraper = ClarkNVVoteScraper() 
+
+key = os.environ["CIVIS_API_KEY"]
+cli = create_client(key)
+
+ccnvScraper = ClarkNVVoteScraper(cli)
 
 clean_votes = ccnvScraper.get_all_votes()
 
-for item in clean_votes:
-    print(item)
-    print("\n")
+ccnvScraper.db_upsert()

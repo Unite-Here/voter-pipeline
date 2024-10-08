@@ -155,7 +155,7 @@ def test_csv_to_dict_list_success():
             writer.writerows(fake_data)
 
         # Call csv_to_dict_list
-        response = csv_to_dict_list(fake_csv, fake_headers)
+        response = csv_to_dict_list(fake_csv, False, fake_headers)
 
         # Assert response is as expected
         assert response == expected_response
@@ -173,5 +173,5 @@ def test_csv_to_dict_list_fail(mocker):
 
         # Assert exception thrown
         with pytest.raises(FileUtilsError, match=r"Reading csv to list failed"):
-            csv_to_dict_list(fake_csv, fake_headers)
+            csv_to_dict_list(fake_csv, False, fake_headers)
         

@@ -1,3 +1,27 @@
+from datetime import datetime
+
+
+def format_date_mdy_to_ymd(data: str) -> str:
+    """
+    Format date from mm/dd/yyyy to yyyy-mm-dd
+    Only use with inputs of format mm/dd/yyyy and yyyy-mm-dd
+
+    Parameters
+    ----------
+    data : string
+
+    Returns
+    -------
+    string
+        If input not mm/dd/yyyy then input is returned, assumed to already be yyyy-mm-dd
+    """
+    try:
+        dt = datetime.strptime(data, "%m/%d/%Y")
+        return dt.strftime("%Y-%m-%d")
+    except:
+        return data
+
+
 def validate_input(valid_input: list, in_val) -> bool:
     """
     See if value exists in list of valid input

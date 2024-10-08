@@ -52,11 +52,12 @@ def unzip_all_files(zip_path: str, unzip_path: str) -> None:
         raise FileUtilsError(f"Unzip all files failed: {err}")
 
 
-def csv_to_dict_list(csv_file: str, headers: list[str], file_encoding: str = "utf-8") -> list[dict]:
+def csv_to_dict_list(csv_file: str, has_header: bool, headers: list[str], file_encoding: str = "utf-8") -> list[dict]:
     """
     Read csv file into list of dictionaries
     Parameters:
         csv_file (string): Path to csv file being read
+        has_header (boolean): Whether or not the csv file has a header row
         headers (list): List of header strings to use as fieldnames
         file_encoding (string): File encoding, defaults to "utf-8"
     Returns:
@@ -64,10 +65,16 @@ def csv_to_dict_list(csv_file: str, headers: list[str], file_encoding: str = "ut
     """
     try:
         data = []
-        file = open(csv_file, "r", encoding=file_encoding)
-        reader = csv.DictReader(file, fieldnames=headers)
-        for dictionary in reader:
-            data.append(dictionary)
+        with open(csv_file, "r", encoding=file_encoding) as file:
+            reader = csv.DictReader(file, fieldnames=headers)
+            
+            for dictionary in reader:
+                data.append(dictionary)
+            
+            # If header was in file, delete first item in data
+            if has_header == True:
+                data.pop(0)
+
         return data
     except Exception as err:
         raise FileUtilsError(f"Reading csv to list failed: {err}")

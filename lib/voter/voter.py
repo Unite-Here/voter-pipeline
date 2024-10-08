@@ -9,6 +9,7 @@ class VoterClassError(RuntimeError):
 
 VOTE_TYPE_OPTIONS = ["Mail", "Early", "E-day"]
 
+
 @dataclass
 class Voter:
     """
@@ -58,6 +59,16 @@ class Voter:
         Voter registration status
     VOTE_SITE : str | None
         Site voter voted at
+    BALLOT_PARTY : str | None
+        Ballot party
+    REQUEST_SOURCE : str | None
+        Request source
+    REQUEST_DATE : str | None
+        Request date
+    BALLOT_MAIL_DATE : str | None
+        Date ballot mailed
+    RETURN_CODE : str | None
+        Return code
 
     Methods
     -------
@@ -85,13 +96,16 @@ class Voter:
     TOWNSHIP: str | None = None
     REG_STATUS: str | None = None
     VOTE_SITE: str | None = None
-
+    BALLOT_PARTY: str | None = None
+    REQUEST_SOURCE: str | None = None
+    REQUEST_DATE: str | None = None
+    BALLOT_MAIL_DATE: str | None = None
+    RETURN_CODE: str | None = None
 
     def __post_init__(self):
         valid = validate_input(VOTE_TYPE_OPTIONS, self.VOTE_TYPE)
         if valid == False:
             raise VoterClassError("Vote type not valid!")
-
 
     def get_all(self) -> dict:
         """
@@ -118,14 +132,134 @@ class Voter:
             "WARD": self.WARD,
             "TOWNSHIP": self.TOWNSHIP,
             "REG_STATUS": self.REG_STATUS,
-            "VOTE_SITE": self.VOTE_SITE
+            "VOTE_SITE": self.VOTE_SITE,
+            "BALLOT_PARTY": self.BALLOT_PARTY,
+            "REQUEST_SOURCE": self.REQUEST_SOURCE,
+            "REQUEST_DATE": self.REQUEST_DATE,
+            "BALLOT_MAIL_DATE": self.BALLOT_MAIL_DATE,
+            "RETURN_CODE": self.RETURN_CODE
         }
-        
+
         return voter_data
+
+    def set_optional(self, optional_data: dict) -> None:
+        """
+        Set all optional values at once
+
+        Parameters
+        ----------
+        optional_data : list
+                - NAME
+                - PRECINCT
+                - PARTY
+                - PARTY_NAME
+                - CONGRESS
+                - ASSEMBLY
+                - SENATE
+                - COMMISSION
+                - EDUCATION
+                - REGENT
+                - SCHOOL
+                - CITY
+                - WARD
+                - TOWNSHIP
+                - REG_STATUS
+                - VOTE_SITE
+                - BALLOT_PARTY
+                - REQUEST_SOURCE
+                - REQUEST_DATE
+                - BALLOT_MAIL_DATE
+                - RETURN_CODE
+        """
+        try:
+            self.set_name(optional_data["NAME"])
+        except:
+            pass
+        try:
+            self.set_precinct(optional_data["PRECINCT"])
+        except:
+            pass
+        try:
+            self.set_party(optional_data["PARTY"])
+        except:
+            pass
+        try:
+            self.set_party_name(optional_data["PARTY_NAME"])
+        except:
+            pass
+        try:
+            self.set_congress(optional_data["CONGRESS"])
+        except:
+            pass
+        try:
+            self.set_assembly(optional_data["ASSEMBLY"])
+        except:
+            pass
+        try:
+            self.set_senate(optional_data["SENATE"])
+        except:
+            pass
+        try:
+            self.set_commission(optional_data["COMMISSION"])
+        except:
+            pass
+        try:
+            self.set_education(optional_data["EDUCATION"])
+        except:
+            pass
+        try:
+            self.set_regent(optional_data["REGENT"])
+        except:
+            pass
+        try:
+            self.set_school(optional_data["SCHOOL"])
+        except:
+            pass
+        try:
+            self.set_city(optional_data["CITY"])
+        except:
+            pass
+        try:
+            self.set_ward(optional_data["WARD"])
+        except:
+            pass
+        try:
+            self.set_township(optional_data["TOWNSHIP"])
+        except:
+            pass
+        try:
+            self.set_reg_status(optional_data["REG_STATUS"])
+        except:
+            pass
+        try:
+            self.set_vote_site(optional_data["VOTE_SITE"])
+        except:
+            pass
+        try:
+            self.set_ballot_party(optional_data["BALLOT_PARTY"])
+        except:
+            pass
+        try:
+            self.set_request_source(optional_data["REQUEST_SOURCE"])
+        except:
+            pass
+        try:
+            self.set_request_date(optional_data["REQUEST_DATE"])
+        except:
+            pass
+        try:
+            self.set_ballot_mail_date(optional_data["BALLOT_MAIL_DATE"])
+        except:
+            pass
+        try:
+            self.set_return_code(optional_data["RETURN_CODE"])
+        except:
+            pass
+
 
     def set_all(self, voter_data: dict) -> None:
         """
-        Set multiple values at once
+        Set all values at once
 
         Parameters
         ----------
@@ -154,6 +288,11 @@ class Voter:
                 - TOWNSHIP
                 - REG_STATUS
                 - VOTE_SITE
+                - BALLOT_PARTY
+                - REQUEST_SOURCE
+                - REQUEST_DATE
+                - BALLOT_MAIL_DATE
+                - RETURN_CODE
         """
 
         if len(voter_data) < 5:
@@ -227,6 +366,26 @@ class Voter:
                 pass
             try:
                 self.set_vote_site(voter_data["VOTE_SITE"])
+            except:
+                pass
+            try:
+                self.set_ballot_party(voter_data["BALLOT_PARTY"])
+            except:
+                pass
+            try:
+                self.set_request_source(voter_data["REQUEST_SOURCE"])
+            except:
+                pass
+            try:
+                self.set_request_date(voter_data["REQUEST_DATE"])
+            except:
+                pass
+            try:
+                self.set_ballot_mail_date(voter_data["BALLOT_MAIL_DATE"])
+            except:
+                pass
+            try:
+                self.set_return_code(voter_data["RETURN_CODE"])
             except:
                 pass
 
@@ -359,3 +518,33 @@ class Voter:
 
     def set_vote_site(self, val: str) -> None:
         self.VOTE_SITE = val
+
+    def get_ballot_party(self) -> str | None:
+        return self.BALLOT_PARTY
+
+    def set_ballot_party(self, val: str) -> None:
+        self.BALLOT_PARTY = val
+
+    def get_request_source(self) -> str | None:
+        return self.REQUEST_SOURCE
+
+    def set_request_source(self, val: str) -> None:
+        self.REQUEST_SOURCE = val
+
+    def get_request_date(self) -> str | None:
+        return self.REQUEST_DATE
+
+    def set_request_date(self, val: str) -> None:
+        self.REQUEST_DATE = val
+
+    def get_ballot_mail_date(self) -> str | None:
+        return self.BALLOT_MAIL_DATE
+
+    def set_ballot_mail_date(self, val: str) -> None:
+        self.BALLOT_MAIL_DATE = val
+
+    def get_return_code(self) -> str | None:
+        return self.RETURN_CODE
+
+    def set_return_code(self, val: str) -> None:
+        self.RETURN_CODE = val

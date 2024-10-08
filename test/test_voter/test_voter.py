@@ -15,7 +15,7 @@ def test_make_voter():
         "NAME": "Un Known",
         "PRECINCT": "0",
         "PARTY": "0",
-        "PARTY_NAME": "Null Party",
+        "PARTY_NAME": "NP",
         "CONGRESS": "0",
         "ASSEMBLY": "0",
         "SENATE": "0",
@@ -27,7 +27,12 @@ def test_make_voter():
         "WARD": "0",
         "TOWNSHIP": "0",
         "REG_STATUS": "A",
-        "VOTE_SITE": "0"
+        "VOTE_SITE": "0",
+        "BALLOT_PARTY": "NP",
+        "REQUEST_SOURCE": "0",
+        "REQUEST_DATE": "2000-01-01",
+        "BALLOT_MAIL_DATE": "2000-01-01",
+        "RETURN_CODE": "0",
     }
 
     fake_voter = Voter(fake_data["IDNUMBER"], fake_data["COUNTY"], fake_data["VOTE_TYPE"], fake_data["ELECTION_CODE"],
@@ -35,7 +40,8 @@ def test_make_voter():
                        fake_data["PARTY_NAME"], fake_data["CONGRESS"], fake_data["ASSEMBLY"], fake_data["SENATE"],
                        fake_data["COMMISSION"], fake_data["EDUCATION"], fake_data["REGENT"], fake_data["SCHOOL"],
                        fake_data["CITY"], fake_data["WARD"], fake_data["TOWNSHIP"], fake_data["REG_STATUS"],
-                       fake_data["VOTE_SITE"])
+                       fake_data["VOTE_SITE"], fake_data["BALLOT_PARTY"], fake_data["REQUEST_SOURCE"],
+                       fake_data["REQUEST_DATE"], fake_data["BALLOT_MAIL_DATE"], fake_data["RETURN_CODE"])
 
     # Assert that Voter data matches input
     assert fake_voter.get_all() == fake_data
@@ -64,7 +70,12 @@ def test_make_voter_invalid_vote_type():
         "WARD": "0",
         "TOWNSHIP": "0",
         "REG_STATUS": "A",
-        "VOTE_SITE": "0"
+        "VOTE_SITE": "0",
+        "BALLOT_PARTY": "NP",
+        "REQUEST_SOURCE": "0",
+        "REQUEST_DATE": "2000-01-01",
+        "BALLOT_MAIL_DATE": "2000-01-01",
+        "RETURN_CODE": "0",
     }
 
     # Assert exception raised
@@ -74,4 +85,6 @@ def test_make_voter_invalid_vote_type():
                            fake_data["PRECINCT"], fake_data["PARTY"], fake_data["PARTY_NAME"], fake_data["CONGRESS"],
                            fake_data["ASSEMBLY"], fake_data["SENATE"], fake_data["COMMISSION"], fake_data["EDUCATION"],
                            fake_data["REGENT"], fake_data["SCHOOL"], fake_data["CITY"], fake_data["WARD"],
-                           fake_data["TOWNSHIP"], fake_data["REG_STATUS"], fake_data["VOTE_SITE"])
+                           fake_data["TOWNSHIP"], fake_data["REG_STATUS"], fake_data["VOTE_SITE"],
+                           fake_data["BALLOT_PARTY"], fake_data["REQUEST_SOURCE"], fake_data["REQUEST_DATE"],
+                           fake_data["BALLOT_MAIL_DATE"], fake_data["RETURN_CODE"])

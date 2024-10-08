@@ -3,12 +3,14 @@ from unittest.mock import Mock
 import pytest
 
 from lib.scraper.clark_nv_vote_scraper import CCNVScraperError, ClarkNVVoteScraper
+from civis.tests import create_client_mock
 
 
 # Test get_all_votes success
 def test_get_all_votes_success(mocker):
     # Fake variable
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
 
     # Mock function calls
     mock_get_vbm_votes = mocker.patch("lib.scraper.clark_nv_vote_scraper.ClarkNVVoteScraper.get_vbm_votes")
@@ -27,7 +29,8 @@ def test_get_all_votes_success(mocker):
 # Test get_all_votes fail
 def test_get_all_votes_fail(mocker):
     # Fake variable
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
 
     # Mock function calls
     mocker.patch("lib.scraper.clark_nv_vote_scraper.ClarkNVVoteScraper.get_vbm_votes", side_effect=Exception)
@@ -40,7 +43,8 @@ def test_get_all_votes_fail(mocker):
 # Test get_vbm_votes success
 def test_get_vbm_votes_success(mocker):
     # Fake variables
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
     fake_dict_list = [{}, {}]
     expected_dict_list = [{"VOTE_TYPE": "Mail"}, {"VOTE_TYPE": "Mail"}]
 
@@ -65,7 +69,8 @@ def test_get_vbm_votes_success(mocker):
 # Test get_vbm_votes fail
 def test_get_vbm_votes_fail(mocker):
     # Fake variables
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
 
     # Mock function call to cause error
     mock_download_file = mocker.patch("lib.scraper.clark_nv_vote_scraper.download_file", side_effect=Exception)
@@ -78,7 +83,8 @@ def test_get_vbm_votes_fail(mocker):
 # Test get_ev_votes success
 def test_get_ev_votes_success(mocker):
     # Fake variables
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
     fake_dict_list = [{}, {}]
     expected_dict_list = [{"VOTE_TYPE": "Early"}, {"VOTE_TYPE": "Early"}]
 
@@ -103,7 +109,8 @@ def test_get_ev_votes_success(mocker):
 # Test get_ev_votes fail
 def test_get_ev_votes_fail(mocker):
     # Fake variables
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
 
     # Mock function call to cause error
     mock_download_file = mocker.patch("lib.scraper.clark_nv_vote_scraper.download_file", side_effect=Exception)
@@ -116,7 +123,8 @@ def test_get_ev_votes_fail(mocker):
 # Test process_votes success
 def test_process_votes_success():
     # Fake variables
-    fake_scraper = ClarkNVVoteScraper()
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
     fake_votes = [{
         "IDNUMBER": "123456",
         "COUNTY": "CLARK_COUNTY",
@@ -138,7 +146,12 @@ def test_process_votes_success():
         "WARD": "0",
         "TOWNSHIP": "0",
         "REG_STATUS": "A",
-        "VOTE_SITE": "0"
+        "VOTE_SITE": "0",
+        "BALLOT_PARTY": "NP",
+        "REQUEST_SOURCE": "0",
+        "REQUEST_DATE": "2000-01-01",
+        "BALLOT_MAIL_DATE": "2000-01-01",
+        "RETURN_CODE": "0",
     }, {
         "IDNUMBER": "654321",
         "COUNTY": "CLARK_COUNTY",
@@ -160,7 +173,12 @@ def test_process_votes_success():
         "WARD": "0",
         "TOWNSHIP": "0",
         "REG_STATUS": "A",
-        "VOTE_SITE": "0"
+        "VOTE_SITE": "0",
+        "BALLOT_PARTY": "NP",
+        "REQUEST_SOURCE": "0",
+        "REQUEST_DATE": "2000-01-01",
+        "BALLOT_MAIL_DATE": "2000-01-01",
+        "RETURN_CODE": "0",
     }]
 
     # Set raw_votes to fake values
@@ -178,8 +196,9 @@ def test_process_votes_success():
 # Test process_votes fail
 def test_process_votes_fail():
     # Fake variables
+    fake_client = create_client_mock()
+    fake_scraper = ClarkNVVoteScraper(fake_client)
     fake_votes = [{"Bad": "Value"}]
-    fake_scraper = ClarkNVVoteScraper()
 
     # Set raw_votes to fake values
     fake_scraper.raw_votes = fake_votes
