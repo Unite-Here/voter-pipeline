@@ -132,7 +132,7 @@ class BaseVoterScraper():
                                             table_columns=SQL_HEADERS,
                                             primary_keys=["idnumber", "county"],
                                             last_modified_keys=["idnumber", "county"],
-                                            existing_table_rows="drop")
+                                            existing_table_rows="upsert")
                 fut.result()
             except Exception as err:
                 raise BaseScraperError(f"Error upserting data to civis: {err}")
