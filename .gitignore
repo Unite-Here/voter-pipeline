@@ -2,4 +2,5 @@ venv*
 *.egg-info
 .coverage
 build
-**/__pycache__/
+__pycache__/
+bin/test

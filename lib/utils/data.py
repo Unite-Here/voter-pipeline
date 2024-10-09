@@ -1,7 +1,7 @@
 from datetime import datetime
 
 
-def format_date_mdy_to_ymd(data: str) -> str | None:
+def format_date_mdy_to_ymd(data: str) -> str:
     """
     Format date from mm/dd/yyyy to yyyy-mm-dd
     Only use with inputs of format mm/dd/yyyy and yyyy-mm-dd

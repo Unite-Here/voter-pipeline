@@ -16,5 +16,5 @@ class BaseExport():
         """
         raise NotImplementedError()
     
-    def get_external_state():
+    def get_external_state(self):
         pass
