@@ -1,4 +1,6 @@
-from lib.utils.data import validate_input
+import pytest
+
+from lib.utils.data import format_date_mdy_to_ymd, validate_input
 
 
 # Test validate_input returns true if input is None
@@ -14,6 +16,7 @@ def test_validate_input_none():
     assert response == True
 
 
+# Test validate_input returns true
 def test_validate_input_valid():
     # Fake variables
     fake_input = "Lime"
@@ -37,3 +40,30 @@ def test_validate_input_not_valid():
 
     # Assert input is not valid
     assert response == False
+
+
+# Test format_date_mdy_to_ymd returns yyyy-mm-dd
+def test_format_date_mdy_to_ymd_success():
+    # Fake variables
+    fake_input = "01/01/2000"
+    
+    # Expected result
+    expected = "2000-01-01"
+
+    # Call format_date_mdy_to_ymd
+    result = format_date_mdy_to_ymd(fake_input)
+
+    # Assert result is correct
+    assert result == expected
+
+
+# Test format_date_mdy_to_ymd returns input on exception
+def test_format_date_mdy_to_ymd_fail():
+    # Fake variables
+    fake_input = "2000.01.01"
+
+    # Call format_date_mdy_to_ymd
+    result = format_date_mdy_to_ymd(fake_input)
+
+    # Assert result equals input
+    assert result == fake_input
