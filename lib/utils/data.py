@@ -12,12 +12,12 @@ def filter_lists(known: list, unknown: list) -> list:
         else:
             return True
 
-    differnce = []
+    difference = []
     filtered = filter(fun, unknown)
     for item in filtered:
-        differnce.append(item)
+        difference.append(item)
 
-    return differnce
+    return difference
 
 
 def format_date_mdy_to_ymd(data: str) -> str:

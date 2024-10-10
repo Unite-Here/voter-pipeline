@@ -7,6 +7,7 @@ from uhlibs.sepuede.api import SePuedeApiSession, getActivityParticipation
 from lib.export.base_export import BaseExport, BaseExportError
 from lib.export.queries import GET_VOTERS_AFLCIO_MATCHED
 from lib.voter.voter import Voter
+from lib.utils.data import filter_lists
 
 CIVIS_PARAMETER_KEYS = [
     'name',
@@ -78,3 +79,11 @@ class SPExport(BaseExport):
             spids.append(val)
 
         return spids
+
+    def find_differences(self):
+        """
+        Find worker_voters sepuede IDs not in external_state sepuede IDs
+        """
+        diff = filter_lists(self.external_state, self.get_worker_voters_spids())
+
+        return diff
