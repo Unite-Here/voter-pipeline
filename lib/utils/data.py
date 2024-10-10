@@ -1,13 +1,24 @@
 from datetime import datetime
 
 
-def filter_lists(known: list, unknown: list) -> list:
+def filter_dict_lists(known: list[dict], unknown: list[dict], key: str) -> list[dict]:
     """
-    Find items in unknown that are not in known
+    Find which values in unknown[key] that do not have a match in known[key]
+
+    Parameters
+    ----------
+    known : list[dict]
+    unknown : list[dict]
+    key : str
+
+    Returns
+    -------
+    list[dict]
     """
 
     def fun(var):
-        if var in known:
+        known_values = [sub[key] for sub in known]
+        if var[key] in known_values:
             return False
         else:
             return True

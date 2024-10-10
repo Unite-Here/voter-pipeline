@@ -1,20 +1,36 @@
 import pytest
 
-from lib.utils.data import filter_lists, format_date_mdy_to_ymd, validate_input
+from lib.utils.data import filter_dict_lists, format_date_mdy_to_ymd, validate_input
 
 
-# Test filter_lists returns difference
+# Test filter_dict_lists returns difference
 def test_filter_lists():
     # Fake variables
     fake_known = [{"fruit": "apricot"}, {"fruit": "blueberry"}, {"fruit": "cranberry"}]
-    fake_unknown = [{"fruit": "apricot"}, {"fruit": "blueberry"}, {"fruit": "cranberry"}, {"fruit": "durian"}]
+    fake_unknown = [{
+        "color": "orange",
+        "fruit": "apricot"
+    }, {
+        "color": "blue",
+        "fruit": "blueberry"
+    }, {
+        "color": "red",
+        "fruit": "cranberry"
+    }, {
+        "color": "yellow",
+        "fruit": "durian"
+    }, {
+        "color": "black",
+        "fruit": "elderberry"
+    }]
 
     # Call filter_lists
-    response = filter_lists(fake_known, fake_unknown)
+    response = filter_dict_lists(fake_known, fake_unknown, "fruit")
 
-    expected = [{"fruit": "durian"}]
+    expected = [{"color": "yellow", "fruit": "durian"}, {"color": "black", "fruit": "elderberry"}]
 
     assert response == expected
+
 
 # Test validate_input returns true if input is None
 def test_validate_input_none():
@@ -59,7 +75,7 @@ def test_validate_input_not_valid():
 def test_format_date_mdy_to_ymd_success():
     # Fake variables
     fake_input = "01/01/2000"
-    
+
     # Expected result
     expected = "2000-01-01"
 

@@ -20,15 +20,15 @@ def test_get_worker_voters(mocker):
     fake_data = [{"greeting": "hello"}, {"greeting": "hola"}]
 
     # Mock function call
-    mock_query_civis = mocker.patch("lib.export.sp_export.query_civis", return_value=fake_data)
+    mock_query_civis = mocker.patch("lib.export.sp_export.select", return_value=fake_data)
 
     # Call get_worker_voters
-    result = fake_export.get_worker_voters(fake_client, fake_local_num, fake_state, fake_county, fake_vp_schema,
+    fake_export.get_worker_voters(fake_client, fake_local_num, fake_state, fake_county, fake_vp_schema,
                                            fake_database)
 
     # Assert query civis called and returned data
     mock_query_civis.assert_called()
-    assert result == fake_data
+    assert fake_export.worker_voters == fake_data
 
 
 def test_sp_export_initial_state():
