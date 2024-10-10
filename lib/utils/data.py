@@ -1,6 +1,25 @@
 from datetime import datetime
 
 
+def filter_lists(known: list, unknown: list) -> list:
+    """
+    Find items in unknown that are not in known
+    """
+
+    def fun(var):
+        if var in known:
+            return False
+        else:
+            return True
+
+    differnce = []
+    filtered = filter(fun, unknown)
+    for item in filtered:
+        differnce.append(item)
+
+    return differnce
+
+
 def format_date_mdy_to_ymd(data: str) -> str:
     """
     Format date from mm/dd/yyyy to yyyy-mm-dd

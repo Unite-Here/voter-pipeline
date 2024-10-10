@@ -1,7 +1,20 @@
 import pytest
 
-from lib.utils.data import format_date_mdy_to_ymd, validate_input
+from lib.utils.data import filter_lists, format_date_mdy_to_ymd, validate_input
 
+
+# Test filter_lists returns difference
+def test_filter_lists():
+    # Fake variables
+    fake_known = [{"fruit": "apricot"}, {"fruit": "blueberry"}, {"fruit": "cranberry"}]
+    fake_unknown = [{"fruit": "apricot"}, {"fruit": "blueberry"}, {"fruit": "cranberry"}, {"fruit": "durian"}]
+
+    # Call filter_lists
+    response = filter_lists(fake_known, fake_unknown)
+
+    expected = [{"fruit": "durian"}]
+
+    assert response == expected
 
 # Test validate_input returns true if input is None
 def test_validate_input_none():

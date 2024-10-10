@@ -66,5 +66,15 @@ class SPExport(BaseExport):
 
         vp_params = map_columns_to_values(CIVIS_PARAMETER_KEYS, vp_params_list)
 
-        result = select(client, GET_VOTERS_AFLCIO_MATCHED, vp_params, database)
-        return result
+        self.worker_voters = select(client, GET_VOTERS_AFLCIO_MATCHED, vp_params, database)
+
+    def get_worker_voters_spids(self):
+        """
+        Get dict list of spid in worker_voters
+        """
+        spids = []
+        for item in self.worker_voters:
+            val = {"spid": item["spid"]}
+            spids.append(val)
+
+        return spids
