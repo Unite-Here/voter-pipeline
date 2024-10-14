@@ -17,12 +17,8 @@ classifiers = [
 
 dependencies = [
   "civis",
-  "os",
-  "python-csv",
   "requests",
-  "tempfile",
-  "uhlibs",
-  "zipfile"
+  "uhlibs"
 ]
 
 [project.optional-dependencies]
