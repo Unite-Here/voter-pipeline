@@ -16,10 +16,12 @@ classifiers = [
 ]
 
 dependencies = [
+  "civis",
   "csv",
   "os",
   "requests",
   "tempfile",
+  "uhlibs",
   "zipfile"
 ]
 

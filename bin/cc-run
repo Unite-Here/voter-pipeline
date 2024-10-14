@@ -1,0 +1,45 @@
+#!/usr/bin/env python3
+
+import os
+
+from uhlibs.civis.api import create_client
+from uhlibs.sepuede.api import SePuedeApiSession
+
+from lib.export.sp_export import SPExport
+from lib.scraper.clark_nv_vote_scraper import ClarkNVVoteScraper
+from lib.utils.data import filter_dict_lists
+
+# INFO: Get environment variables
+sp_key = os.environ["SP_API_KEY"]
+sp_step = os.environ["SP_STEP_ID"]
+sp_vote_date_detail_id = os.environ["SP_VOTE_DATE_DETAIL_ID"]
+sp_vote_type_detail_id = os.environ["SP_VOTE_TYPE_DETAIL_ID"]
+sp_url = os.environ["SP_URL"]
+civis_key = os.environ["CIVIS_API_KEY"]
+local_num = os.environ["LOCAL_NUMBER"]
+state = os.environ["STATE_ABBRREVIATION"]
+county = os.environ["COUNTY_NAME"]
+database = os.environ["DATABASE_NAME"]
+schema = os.environ["SCHEMA_NAME"] 
+
+# INFO: Create client, session, scraper, and export
+cli = create_client(civis_key)
+sp_session = SePuedeApiSession(sp_url, sp_key)
+cc_scraper = ClarkNVVoteScraper(cli)
+export = SPExport(sp_session, sp_step, sp_vote_date_detail_id, sp_vote_type_detail_id)
+
+# INFO: Scrape clark county data and upsert to civis
+print("Getting clark county votes")
+clean_votes = cc_scraper.get_all_votes()
+print("Upserting cleaned vote data to civis database")
+cc_scraper.db_upsert()
+
+# INFO: Export data
+print("Getting external state")
+export.get_external_state()
+print("Getting worker voters")
+export.get_worker_voters(cli, local_num, state, county, schema, database)
+print("Getting worker voters not in external")
+diff = filter_dict_lists(export.external_state, export.worker_voters, "spid")
+print("Sending updated data to sepuede")
+export.send_updates()

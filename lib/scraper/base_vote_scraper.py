@@ -2,7 +2,6 @@ import csv
 import tempfile
 
 import civis
-from uhlibs.civis.api import query_civis
 
 from lib.voter.voter import Voter
 
