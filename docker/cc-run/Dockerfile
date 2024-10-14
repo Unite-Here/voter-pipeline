@@ -38,4 +38,4 @@ ENV SCHEMA_NAME=${SCHEMA_NAME}
 
 # install dependencies
 RUN bash ./bin/install
-CMD ["sh -c '. /voter-pipeline/venv3.11/bin/activate'"]
+CMD ["sh -c '. /voter-pipeline/venv3.11/bin/activate && cc-run'"]
