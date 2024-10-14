@@ -22,10 +22,8 @@ class CCNVExportError(BaseExportError):
 
 class SPExport(BaseExport):
 
-    def __init__(self, sp_session, sp_base_url, sp_api_key, step_id, vote_date_detail_id, vote_type_detail_id) -> None:
+    def __init__(self, sp_session, step_id, vote_date_detail_id, vote_type_detail_id) -> None:
         super().__init__()
-        self.sp_base_url = sp_base_url
-        self.sp_api_key = sp_api_key
         self.step_id = step_id
         self.vote_date_detail_id = vote_date_detail_id
         self.vote_type_detail_id = vote_type_detail_id
@@ -39,7 +37,6 @@ class SPExport(BaseExport):
         """
 
         sp_voters = getActivityParticipation(self.sp_session, 'step', self.step_id)
-        print(sp_voters)
 
         self.external_state = list(map(self._extract_rename, sp_voters))
 

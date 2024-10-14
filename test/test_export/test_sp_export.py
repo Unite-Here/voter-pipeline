@@ -8,13 +8,11 @@ from lib.export.sp_export import SPExport, CCNVExportError
 def test_update_worker_success(mocker):
     # Fake variables
     fake_worker = {"spid": "12358", "activity_date": "2000-01-01", "vote_type": "Mail"}
-    fake_url = "www.fakeurl.com"
-    fake_api_key = "Fake API key 1234"
     fake_step_id = 12345
     fake_vote_date_detail_id = "0101"
     fake_vote_type_detail_id = "1010"
     fake_sp_session = "session"
-    fake_export = SPExport(fake_sp_session, fake_url, fake_api_key, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
+    fake_export = SPExport(fake_sp_session, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
 
     # Mock function calls
     mock_add_step = mocker.patch("lib.export.sp_export.addStep")
@@ -31,13 +29,11 @@ def test_update_worker_success(mocker):
 def test_update_worker_fail(mocker):
     # Fake variables
     fake_worker = {"spid": "12358", "activity_date": "2000-01-01", "vote_type": "Mail"}
-    fake_url = "www.fakeurl.com"
-    fake_api_key = "Fake API key 1234"
     fake_step_id = 12345
     fake_vote_date_detail_id = "0101"
     fake_vote_type_detail_id = "1010"
     fake_sp_session = "session"
-    fake_export = SPExport(fake_sp_session, fake_url, fake_api_key, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
+    fake_export = SPExport(fake_sp_session, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
 
     # Mock function call
     mock_add_step = mocker.patch("lib.export.sp_export.addStep", side_effect=Exception)
@@ -50,13 +46,11 @@ def test_update_worker_fail(mocker):
 def test_get_worker_voters(mocker):
     # Fake variables
     fake_client = "fake_client"
-    fake_url = "www.fakeurl.com"
-    fake_api_key = "Fake API key 1234"
     fake_step_id = 12345
     fake_vote_date_detail_id = "0101"
     fake_vote_type_detail_id = "1010"
     fake_sp_session = "session"
-    fake_export = SPExport(fake_sp_session, fake_url, fake_api_key, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
+    fake_export = SPExport(fake_sp_session, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
     fake_local_num = "00000000"
     fake_state = "NJ"
     fake_county = "Hudson"
@@ -76,28 +70,22 @@ def test_get_worker_voters(mocker):
 
 
 def test_sp_export_initial_state():
-    fake_url = "www.fakeurl.com"
-    fake_api_key = "Fake API key 1234"
     fake_step_id = 12345
     fake_vote_date_detail_id = "0101"
     fake_vote_type_detail_id = "1010"
     fake_sp_session = "session"
-    fake_export = SPExport(fake_sp_session, fake_url, fake_api_key, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
+    fake_export = SPExport(fake_sp_session, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
 
     assert fake_export.external_state == []
-    assert fake_export.sp_base_url == fake_url
-    assert fake_export.sp_api_key == fake_api_key
     assert fake_export.step_id == fake_step_id
 
 
 def test_get_external_state(mocker):
-    fake_url = "www.fakeurl.com"
-    fake_api_key = "Fake API key 1234"
     fake_step_id = 12345
     fake_vote_date_detail_id = "0101"
     fake_vote_type_detail_id = "1010"
     fake_sp_session = "session"
-    fake_export = SPExport(fake_sp_session, fake_url, fake_api_key, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
+    fake_export = SPExport(fake_sp_session, fake_step_id, fake_vote_date_detail_id, fake_vote_type_detail_id)
     mock_sp_result = [{
         'type': 'Step',
         'stepDetailId': fake_step_id,
