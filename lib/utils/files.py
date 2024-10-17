@@ -1,6 +1,8 @@
 import csv
+import os
 from zipfile import ZipFile
 
+import openpyxl
 import requests
 
 
@@ -63,14 +65,14 @@ def csv_to_dict_list(csv_file: str, has_header: bool, headers: list[str], file_e
     Returns:
         data: List of dictionaries
     """
+    data = []
     try:
-        data = []
         with open(csv_file, "r", encoding=file_encoding) as file:
             reader = csv.DictReader(file, fieldnames=headers)
-            
+
             for dictionary in reader:
                 data.append(dictionary)
-            
+
             # If header was in file, delete first item in data
             if has_header == True:
                 data.pop(0)
@@ -78,3 +80,49 @@ def csv_to_dict_list(csv_file: str, has_header: bool, headers: list[str], file_e
         return data
     except Exception as err:
         raise FileUtilsError(f"Reading csv to list failed: {err}")
+
+
+def delete_csv_headers(csv_file: str, directory: str, file_encoding: str = "utf-8"):
+    """
+    Delete first row (presumed to be header) from csv file
+    Parameters:
+        csv_file (string): Path to csv file being edited
+        directory (string): Path working directory, not ending in '/'
+        file_encoding (string): File encoding, defaults to "utf-8"
+    """
+    with open(f"{directory}/temp.csv", "w", newline="", encoding=file_encoding) as temp_csv:
+        # Write all except first row to temp_csv
+        with open(csv_file, "r") as source:
+            writer = csv.writer(temp_csv)
+            reader = csv.reader(source)
+            for index, row in enumerate(reader):
+                if index != 0:
+                    writer.writerow(row)
+
+    with open(f"{directory}/temp.csv", "r", newline="", encoding=file_encoding) as temp_csv:
+        # Overwrite csv file from temp_csv
+        with open(csv_file, "w", newline="", encoding=file_encoding) as destination:
+            writer = csv.writer(destination)
+            reader = csv.reader(temp_csv)
+            for row in reader:
+                writer.writerow(row)
+
+    # Delete temporary file
+    os.remove(f"{directory}/temp.csv")
+
+
+def xlsx_to_csv(xlsx_file: str, csv_file: str, file_encoding: str = "utf-8"):
+    """
+    Read xlsx file to csv
+    Parameters:
+        xlsx_file (string): Path to xlsx file being read
+        csv_file (string): Path to csv file being written
+        file_encoding (string): File encoding, defaults to "utf-8"
+    """
+    excel = openpyxl.load_workbook(xlsx_file)
+    sheet = excel.active
+    if sheet is not None:
+        with open(csv_file, "w", newline="", encoding=file_encoding) as file:
+            writer = csv.writer(file)
+            for row in sheet.rows:
+                writer.writerow(cell.value for cell in row)
