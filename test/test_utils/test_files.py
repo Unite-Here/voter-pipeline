@@ -4,10 +4,12 @@ import tempfile
 from unittest.mock import Mock
 from zipfile import ZipFile
 
+import openpyxl
 import pytest
 import requests
 
-from lib.utils.files import FileUtilsError, csv_to_dict_list, download_file, unzip_all_files, unzip_file
+from lib.utils.files import (FileUtilsError, csv_to_dict_list, delete_csv_headers, download_file, unzip_all_files,
+                             unzip_file, xlsx_to_csv)
 
 
 # Test download_file success
@@ -163,8 +165,8 @@ def test_csv_to_dict_list_success():
 
 # Test csv_to_list fail
 def test_csv_to_dict_list_fail(mocker):
-    # Fake variables
     with tempfile.TemporaryDirectory() as tmpdir:
+        # Fake variables
         fake_headers = ["FRUIT", "COLOR", "TASTE"]
         fake_csv = f"{tmpdir}/fake.csv"
 
@@ -174,4 +176,109 @@ def test_csv_to_dict_list_fail(mocker):
         # Assert exception thrown
         with pytest.raises(FileUtilsError, match=r"Reading csv to list failed"):
             csv_to_dict_list(fake_csv, False, fake_headers)
-        
+
+
+# test delete_csv_headers
+def test_delete_csv_headers():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Fake variables
+        fake_data = [{
+            "FRUIT": "Apricot",
+            "COLOR": "Orange",
+            "TASTE": "Tart"
+        }, {
+            "FRUIT": "Blackberry",
+            "COLOR": "Black",
+            "TASTE": "Tart"
+        }, {
+            "FRUIT": "Cantaloupe",
+            "COLOR": "Orange",
+            "TASTE": "Sweet"
+        }]
+        fake_keys = ["FRUIT", "COLOR", "TASTE"]
+
+        with open(f"{tmpdir}/fake.csv", "w", newline="") as outfile:
+            dict_writer = csv.DictWriter(outfile, fake_keys)
+            dict_writer.writeheader()
+            dict_writer.writerows(fake_data)
+
+        # Assert first row is headers
+        fake_contents = []
+        with open(f"{tmpdir}/fake.csv", "r") as infile:
+            reader = csv.reader(infile)
+            for d in reader:
+                fake_contents.append(d)
+
+        assert fake_contents[0] == fake_keys
+
+        # Call delete_csv_headers
+        delete_csv_headers(f"{tmpdir}/fake.csv", tmpdir)
+
+        # Assert file no longer contains headers
+        expected = [['Apricot', 'Orange', 'Tart'], ['Blackberry', 'Black', 'Tart'], ['Cantaloupe', 'Orange', 'Sweet']]
+        result = []
+        with open(f"{tmpdir}/fake.csv", "r") as infile:
+            reader = csv.reader(infile)
+            for d in reader:
+                result.append(d)
+
+        assert result == expected
+
+
+# test delete_csv_headers
+def test_xlsx_to_csv():
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # Fake variables
+        fake_data = [[
+            "Apricot",
+            "Orange",
+            "Tart"
+        ], [
+            "Blackberry",
+            "Black",
+            "Tart"
+        ], [
+            "Cantaloupe",
+            "Orange",
+            "Sweet"
+        ]]
+        fake_keys = ["FRUIT", "COLOR", "TASTE"]
+
+        fake_wb = openpyxl.Workbook()
+        fake_ws = fake_wb.active
+        if fake_ws is not None:
+            fake_ws.append(fake_keys)
+            for data in fake_data:
+                fake_ws.append(data)
+
+        fake_wb.save(f"{tmpdir}/fake.xlsx")
+
+        # Call xlsx_to_csv
+        xlsx_to_csv(f"{tmpdir}/fake.xlsx", f"{tmpdir}/fake.csv")
+
+        # Assert csv data is as expected
+        expected = [{
+            "FRUIT": "FRUIT",
+            "COLOR": "COLOR",
+            "TASTE": "TASTE"
+        }, {
+            "FRUIT": "Apricot",
+            "COLOR": "Orange",
+            "TASTE": "Tart"
+        }, {
+            "FRUIT": "Blackberry",
+            "COLOR": "Black",
+            "TASTE": "Tart"
+        }, {
+            "FRUIT": "Cantaloupe",
+            "COLOR": "Orange",
+            "TASTE": "Sweet"
+        }]
+
+        result = []
+        with open(f"{tmpdir}/fake.csv", "r") as file:
+            reader = csv.DictReader(file, fieldnames=fake_keys)
+            for d in reader:
+                result.append(d)
+
+        assert result == expected
