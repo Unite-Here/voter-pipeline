@@ -16,7 +16,9 @@ classifiers = [
 ]
 
 dependencies = [
+  "bs4",
   "civis",
+  "openpyxl",
   "requests",
   "uhlibs"
 ]
