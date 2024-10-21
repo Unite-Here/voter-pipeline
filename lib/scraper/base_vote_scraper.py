@@ -122,6 +122,9 @@ class BaseVoterScraper():
                     # Loop through all Voter objects in list and add data as csv row
                     for voter in self.clean_votes:
                         data = voter.get_all()
+                        if len(data["IDNUMBER"]) < 3:
+                            print("DEBUGGING: ISSUE FOUND WITH VOTER OBJECT")
+                            print(f"DEBUGGING:\n{data}\n")
                         writer.writerow(data)
 
                 # Send populated csv to database
