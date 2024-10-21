@@ -6,13 +6,11 @@ from lib.utils.data import format_date_mdy_to_ymd
 from lib.utils.files import csv_to_dict_list, download_file, unzip_file
 from lib.voter.voter import Voter
 
-EV_URL = "https://elections.clarkcountynv.gov/VoterRequestsTV/EVMB/ev_24P.zip"
-EV_ZIP_NAME = "ev_24P.zip"
-EV_FILE_NAME = "EV_24P.txt"
+EV_URL = "https://elections.clarkcountynv.gov/VoterRequestsTV/EVMB/ev_24G.zip"
+EV_ZIP_NAME = "ev_24G.zip"
 EV_CSV_NAME = "ev_votes.csv"
-VBM_URL = "https://elections.clarkcountynv.gov/VoterRequestsTV/EVMB/mbreq24P.zip"
-VBM_ZIP_NAME = "mbreq24P.zip"
-VBM_FILE_NAME = "mbreq24P_20240620_23300223.txt"
+VBM_URL = "https://elections.clarkcountynv.gov/VoterRequestsTV/EVMB/mbreq24G.zip"
+VBM_ZIP_NAME = "mbreq24G.zip"
 VBM_CSV_NAME = "vbm_votes.csv"
 RAW_EV_HEADERS = [
     "IDNUMBER", "NAME", "PRECINCT", "PARTY", "PARTY_NAME", "CONGRESS", "ASSEMBLY", "SENATE", "COMMISSION", "EDUCATION",
@@ -64,10 +62,10 @@ class ClarkNVVoteScraper(BaseVoterScraper):
                 download_file(VBM_URL, f"{tmpdir}/{VBM_ZIP_NAME}")
 
                 # Extract single file from downloaded zip
-                unzip_file(f"{tmpdir}/{VBM_ZIP_NAME}", VBM_FILE_NAME, tmpdir)
+                file_name = unzip_file(f"{tmpdir}/{VBM_ZIP_NAME}", tmpdir)
 
                 # Rename file from txt to csv
-                os.rename(f"{tmpdir}/{VBM_FILE_NAME}", f"{tmpdir}/{VBM_CSV_NAME}")
+                os.rename(f"{tmpdir}/{file_name}", f"{tmpdir}/{VBM_CSV_NAME}")
 
                 # Convert csv to list of dictionaries and add vote type
                 file_data = csv_to_dict_list(f"{tmpdir}/{VBM_CSV_NAME}", True, RAW_VBM_HEADERS, FILE_ENCODING)
@@ -89,10 +87,10 @@ class ClarkNVVoteScraper(BaseVoterScraper):
                 download_file(EV_URL, f"{tmpdir}/{EV_ZIP_NAME}")
 
                 # Extract single file from downloaded zip
-                unzip_file(f"{tmpdir}/{EV_ZIP_NAME}", EV_FILE_NAME, tmpdir)
+                file_name = unzip_file(f"{tmpdir}/{EV_ZIP_NAME}", tmpdir)
 
                 # Turn txt file into csv
-                os.rename(f"{tmpdir}/{EV_FILE_NAME}", f"{tmpdir}/{EV_CSV_NAME}")
+                os.rename(f"{tmpdir}/{file_name}", f"{tmpdir}/{EV_CSV_NAME}")
 
                 # Convert csv to list of dictionaries and add vote type
                 file_data = csv_to_dict_list(f"{tmpdir}/{EV_CSV_NAME}", False, RAW_EV_HEADERS, FILE_ENCODING)

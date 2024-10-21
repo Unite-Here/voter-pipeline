@@ -1,3 +1,4 @@
+# FIXME: All columns need to be fixed because Washoe County doesn't understand consistancy
 import csv
 import re
 import tempfile
@@ -27,6 +28,7 @@ RAW_VOTE_HEADERS = [
 COUNTY_NAME = "WASHOE_COUNTY"
 ELECTION_CODE = "24PP"
 FILE_ENCODING = "utf-8"
+LINK_REGEX = r"2024-election-files\/PPP-EV-.*\.xlsx"
 
 
 class WCNVScraperError(RuntimeError):
@@ -90,7 +92,7 @@ class WashoeNVVoteScraper(BaseVoterScraper):
             # Get html
             result = requests.get(VOTE_URL)
             soup = BeautifulSoup(result.content, "html5lib")
-            html_list = soup.findAll("a", {"href": re.compile(r"2024-election-files\/PPP-EV-.*\.xlsx")})
+            html_list = soup.findAll("a", {"href": re.compile(LINK_REGEX)})
 
             # Extract links from html_list
             links = []

@@ -25,7 +25,7 @@ def download_file(url: str, dest_path: str) -> None:
         raise FileUtilsError(f"Downloading file failed: {err}")
 
 
-def unzip_file(zip_path: str, file_name: str, unzip_path: str) -> None:
+def unzip_file(zip_path: str, unzip_path: str, file_name: str | None = None) -> str:
     """
     Unzip specific file to destination
     Parameters:
@@ -35,7 +35,15 @@ def unzip_file(zip_path: str, file_name: str, unzip_path: str) -> None:
     """
     try:
         with ZipFile(zip_path, "r") as z_obj:
-            z_obj.extract(file_name, path=unzip_path)
+            if file_name != None:
+                z_obj.extract(file_name, path=unzip_path)
+            else:
+                names = z_obj.namelist()
+                file_name = names[0]
+                z_obj.extract(file_name, path=unzip_path)
+
+        return file_name
+                
     except Exception as err:
         raise FileUtilsError(f"Unzip file failed: {err}")
 
