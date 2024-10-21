@@ -10,7 +10,8 @@ from civis.tests import create_client_mock
 def test_get_all_votes_success(mocker):
     # Fake variable
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
 
     # Mock function calls
     mock_get_vbm_votes = mocker.patch("lib.scraper.clark_nv_vote_scraper.ClarkNVVoteScraper.get_vbm_votes")
@@ -30,7 +31,8 @@ def test_get_all_votes_success(mocker):
 def test_get_all_votes_fail(mocker):
     # Fake variable
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
 
     # Mock function calls
     mocker.patch("lib.scraper.clark_nv_vote_scraper.ClarkNVVoteScraper.get_vbm_votes", side_effect=Exception)
@@ -44,9 +46,10 @@ def test_get_all_votes_fail(mocker):
 def test_get_vbm_votes_success(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
-    fake_dict_list = [{}, {}]
-    expected_dict_list = [{"VOTE_TYPE": "Mail"}, {"VOTE_TYPE": "Mail"}]
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
+    fake_dict_list = [{"IDNUMBER": "123456"}, {"IDNUMBER": "654321"}]
+    expected_dict_list = [{"IDNUMBER": "123456", "VOTE_TYPE": "Mail"}, {"IDNUMBER": "654321", "VOTE_TYPE": "Mail"}]
 
     # Mock function calls
     mock_download_file = mocker.patch("lib.scraper.clark_nv_vote_scraper.download_file")
@@ -70,7 +73,8 @@ def test_get_vbm_votes_success(mocker):
 def test_get_vbm_votes_fail(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
 
     # Mock function call to cause error
     mock_download_file = mocker.patch("lib.scraper.clark_nv_vote_scraper.download_file", side_effect=Exception)
@@ -84,7 +88,8 @@ def test_get_vbm_votes_fail(mocker):
 def test_get_ev_votes_success(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
     fake_dict_list = [{}, {}]
     expected_dict_list = [{"VOTE_TYPE": "Early"}, {"VOTE_TYPE": "Early"}]
 
@@ -110,7 +115,8 @@ def test_get_ev_votes_success(mocker):
 def test_get_ev_votes_fail(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
 
     # Mock function call to cause error
     mock_download_file = mocker.patch("lib.scraper.clark_nv_vote_scraper.download_file", side_effect=Exception)
@@ -124,7 +130,8 @@ def test_get_ev_votes_fail(mocker):
 def test_process_votes_success():
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
     fake_votes = [{
         "IDNUMBER": "123456",
         "COUNTY": "CLARK_COUNTY",
@@ -197,7 +204,8 @@ def test_process_votes_success():
 def test_process_votes_fail():
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = ClarkNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = ClarkNVVoteScraper(fake_client, fake_table)
     fake_votes = [{"Bad": "Value"}]
 
     # Set raw_votes to fake values

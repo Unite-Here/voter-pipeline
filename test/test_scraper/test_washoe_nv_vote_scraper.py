@@ -10,7 +10,8 @@ from lib.scraper.washoe_nv_vote_scraper import WashoeNVVoteScraper, WCNVScraperE
 def test_get_all_votes_success(mocker):
     # Fake variable
     fake_client = create_client_mock()
-    fake_scraper = WashoeNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = WashoeNVVoteScraper(fake_client, fake_table)
 
     # Mock function calls
     mock_get_raw_votes_from_link = mocker.patch(
@@ -29,7 +30,8 @@ def test_get_all_votes_success(mocker):
 def test_get_all_votes_fail(mocker):
     # Fake variable
     fake_client = create_client_mock()
-    fake_scraper = WashoeNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = WashoeNVVoteScraper(fake_client, fake_table)
 
     # Mock function calls
     mocker.patch("lib.scraper.washoe_nv_vote_scraper.WashoeNVVoteScraper.get_raw_votes_from_link",
@@ -44,7 +46,8 @@ def test_get_all_votes_fail(mocker):
 def test_get_raw_votes_from_link_success(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = WashoeNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = WashoeNVVoteScraper(fake_client, fake_table)
     fake_dict_list = [{
         "voter_id": "000",
         "date_returned": "2000-01-01"
@@ -88,7 +91,8 @@ def test_get_raw_votes_from_link_success(mocker):
 def test_get_raw_votes_from_link_fail(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = WashoeNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = WashoeNVVoteScraper(fake_client, fake_table)
 
     # Mock function calls
     mocker.patch("lib.scraper.washoe_nv_vote_scraper.WashoeNVVoteScraper.get_latest_link", return_value="fake.site")
@@ -103,7 +107,8 @@ def test_get_raw_votes_from_link_fail(mocker):
 def test_process_votes_success():
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = WashoeNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = WashoeNVVoteScraper(fake_client, fake_table)
     fake_votes = [{
         "voter_id": "123456",
         "county": "WASHOE_COUNTY",
@@ -141,7 +146,8 @@ def test_process_votes_success():
 def test_process_votes_fail():
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = WashoeNVVoteScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = WashoeNVVoteScraper(fake_client, fake_table)
     fake_votes = [{"Bad": "Value"}]
 
     # Set raw_votes to fake values

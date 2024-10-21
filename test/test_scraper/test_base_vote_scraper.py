@@ -20,7 +20,8 @@ def create_mock_future(client, response):
 def test_db_upsert_success(mocker):
     # Fake variables
     fake_client = create_client_mock()
-    fake_scraper = BaseVoterScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = BaseVoterScraper(fake_client, fake_table)
     fake_votes = [{
         "IDNUMBER": "123456",
         "COUNTY": "CLARK_COUNTY",
@@ -112,7 +113,8 @@ def test_db_upsert_success(mocker):
 # Test db_upsert fail
 def test_db_upsert_fail(mocker):
     fake_client = create_client_mock()
-    fake_scraper = BaseVoterScraper(fake_client)
+    fake_table = "fake.table"
+    fake_scraper = BaseVoterScraper(fake_client, fake_table)
     fake_votes = [{
         "IDNUMBER": "123456",
         "COUNTY": "CLARK_COUNTY",

@@ -21,11 +21,12 @@ state = os.environ["STATE_ABBREVIATION"]
 county = os.environ["COUNTY_NAME"]
 database = os.environ["DATABASE_NAME"]
 schema = os.environ["SCHEMA_NAME"] 
+table = f"{schema}.voter_pipeline"
 
 # INFO: Create client, session, scraper, and export
 cli = create_client(civis_key)
 sp_session = SePuedeApiSession(sp_url, sp_key)
-cc_scraper = ClarkNVVoteScraper(cli)
+cc_scraper = ClarkNVVoteScraper(cli, table)
 export = SPExport(sp_session, sp_step, sp_vote_date_detail_id, sp_vote_type_detail_id)
 
 # INFO: Scrape clark county data and upsert to civis

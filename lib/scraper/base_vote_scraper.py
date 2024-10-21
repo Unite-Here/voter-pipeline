@@ -91,9 +91,7 @@ SQL_HEADERS = [{
     "sql_type": "VARCHAR"
 }]
 
-SCHEMA = os.environ["SCHEMA_NAME"]
 DATABASE = "Unite Here"
-TABLE = f"{SCHEMA}.voter_pipeline"
 
 
 class BaseScraperError(RuntimeError):
@@ -102,9 +100,10 @@ class BaseScraperError(RuntimeError):
 
 class BaseVoterScraper():
 
-    def __init__(self, cli) -> None:
+    def __init__(self, cli, table) -> None:
         self.client = cli
         self.clean_votes: list[Voter] = []
+        self.table = table
         pass
 
     def db_upsert(self):
@@ -129,7 +128,7 @@ class BaseVoterScraper():
                 fut = civis.io.csv_to_civis(f"{tmpdir}/voters_data.csv",
                                             client=self.client,
                                             database=DATABASE,
-                                            table=TABLE,
+                                            table=self.table,
                                             headers=True,
                                             table_columns=SQL_HEADERS,
                                             primary_keys=["idnumber", "county"],

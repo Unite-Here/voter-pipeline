@@ -37,8 +37,8 @@ class WCNVScraperError(RuntimeError):
 
 class WashoeNVVoteScraper(BaseVoterScraper):
 
-    def __init__(self, cli) -> None:
-        super().__init__(cli)
+    def __init__(self, cli, table) -> None:
+        super().__init__(cli, table)
         self.raw_votes = []
 
     def get_all_votes(self):
