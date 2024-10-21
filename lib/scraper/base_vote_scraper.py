@@ -120,10 +120,9 @@ class BaseVoterScraper():
                     writer.writeheader()
 
                     # Loop through all Voter objects in list and add data as csv row
-                    for voter in self.clean_votes:
+                    for index, voter in enumerate(self.clean_votes):
                         data = voter.get_all()
-                        if len(data["IDNUMBER"]) < 1:
-                            print("DEBUGGING: ISSUE FOUND WITH VOTER OBJECT")
+                        if index >= 88000:
                             print(f"DEBUGGING:\n{data}\n")
                         writer.writerow(data)
 
