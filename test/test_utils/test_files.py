@@ -66,7 +66,7 @@ def test_unzip_file_success():
         os.remove(fake_file)
 
         # Call unzip_file
-        unzip_file(fake_zip, os.path.basename(fake_file), tmpdir)
+        unzip_file(fake_zip, tmpdir, os.path.basename(fake_file))
 
         # Assert file extracted correctly
         assert os.path.exists(fake_file)
@@ -84,7 +84,7 @@ def test_unzip_file_fail(mocker):
 
         # Assert exception raised
         with pytest.raises(FileUtilsError, match=r"Unzip file failed"):
-            unzip_file(fake_zip, os.path.basename(fake_file), tmpdir)
+            unzip_file(fake_zip, tmpdir, os.path.basename(fake_file))
 
 
 # Test unzip_all_files success
