@@ -69,6 +69,10 @@ class ClarkNVVoteScraper(BaseVoterScraper):
 
                 # Convert csv to list of dictionaries and add vote type
                 file_data = csv_to_dict_list(f"{tmpdir}/{VBM_CSV_NAME}", True, RAW_VBM_HEADERS, FILE_ENCODING)
+                
+                # Remove items that do not have a value for voter_id or date_returned
+                file_data = [val for val in file_data if val["IDNUMBER"]]
+                
                 for dictionary in file_data:
                     dictionary["VOTE_TYPE"] = "Mail"
 
