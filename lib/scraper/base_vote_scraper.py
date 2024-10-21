@@ -1,5 +1,6 @@
 import csv
 import tempfile
+import os
 
 import civis
 
@@ -12,85 +13,87 @@ HEADER_LIST = [
 ]
 SQL_HEADERS = [{
     "name": "IDNUMBER",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "COUNTY",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "VOTE_TYPE",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "ELECTION_CODE",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "ACTIVITY_DATE",
-    # "sql_type": "DATE"
+    "sql_type": "DATE"
 }, {
     "name": "NAME",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "PRECINCT",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "PARTY",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "PARTY_NAME",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "CONGRESS",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "ASSEMBLY",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "SENATE",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "COMMISSION",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "EDUCATION",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "REGENT",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "SCHOOL",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "CITY",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "WARD",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "TOWNSHIP",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "REG_STATUS",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "VOTE_SITE",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "BALLOT_PARTY",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "REQUEST_SOURCE",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }, {
     "name": "REQUEST_DATE",
-    # "sql_type": "DATE"
+    "sql_type": "DATE"
 }, {
     "name": "BALLOT_MAIL_DATE",
-    # "sql_type": "DATE"
+    "sql_type": "DATE"
 }, {
     "name": "RETURN_CODE",
-    # "sql_type": "VARCHAR"
+    "sql_type": "VARCHAR"
 }]
+
+SCHEMA = os.environ["SCHEMA_NAME"]
 DATABASE = "Unite Here"
-TABLE = "political_dev.voter_pipeline"
+TABLE = f"{SCHEMA}.voter_pipeline"
 
 
 class BaseScraperError(RuntimeError):
