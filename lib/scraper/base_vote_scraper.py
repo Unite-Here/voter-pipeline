@@ -122,8 +122,8 @@ class BaseVoterScraper():
                     # Loop through all Voter objects in list and add data as csv row
                     for index, voter in enumerate(self.clean_votes):
                         data = voter.get_all()
-                        if index >= 88000:
-                            print(f"DEBUGGING:\n{data}\n")
+                        if index >= 88025:
+                            print(f"DEBUGGING {index}:\n{data}\n")
                         writer.writerow(data)
 
                 # Send populated csv to database
