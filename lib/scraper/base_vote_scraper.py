@@ -15,7 +15,7 @@ SQL_HEADERS = [{
     # "sql_type": "VARCHAR"
 }, {
     "name": "COUNTY",
-    "sql_type": "VARCHAR"
+    # "sql_type": "VARCHAR"
 }, {
     "name": "VOTE_TYPE",
     # "sql_type": "VARCHAR"
