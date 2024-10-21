@@ -97,7 +97,7 @@ class ClarkNVVoteScraper(BaseVoterScraper):
                 os.rename(f"{tmpdir}/{file_name}", f"{tmpdir}/{EV_CSV_NAME}")
 
                 # Convert csv to list of dictionaries and add vote type
-                file_data = csv_to_dict_list(f"{tmpdir}/{EV_CSV_NAME}", False, RAW_EV_HEADERS, FILE_ENCODING)
+                file_data = csv_to_dict_list(f"{tmpdir}/{EV_CSV_NAME}", True, RAW_EV_HEADERS, FILE_ENCODING)
                 for dictionary in file_data:
                     dictionary["VOTE_TYPE"] = "Early"
 
