@@ -20,7 +20,7 @@ dependencies = [
   "civis",
   "openpyxl",
   "requests",
-  "uhlibs" = "0.8.2"
+  uhlibs = "0.8.2"
 ]
 
 [project.optional-dependencies]
